@@ -36,6 +36,20 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    esmExternals: 'loose',
+  },
+  webpack: (config, { isServer }) => {
+    // Add support for path aliases
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@/lib': require('path').join(__dirname, 'lib'),
+      '@/services': require('path').join(__dirname, 'services'),
+      '@': require('path').join(__dirname),
+    };
+    
+    return config;
+  },
 }
 
 module.exports = nextConfig 
